@@ -1,35 +1,15 @@
 import flask
 from flask import request, jsonify
 import os
-import napalm
-from cryptography.fernet import Fernet
+#import napalm
+# from cryptography.fernet import Fernet
 from passFunc import decryptPass
+from connect import connect
 
 app = flask.Flask(__name__)
 app.config['DEBUG'] = True
 
-def connect(host, getFunc):
 
-    results = []
-
-    driver = napalm.get_network_driver('eos')
-
-    decPass = decryptPass()
-
-    device = driver(hostname=host, username='vagrant', password=decPass, optional_args={'port': 12443})
-
-    device.open()
-
-    if getFunc == 'facts':
-        results = jsonify(device.get_facts())
-    if getFunc == 'config':
-        results = device.get_config()
-    else:
-        results = device.get_facts()
-
-    device.close()
-
-    return results
 
 @app.route('/', methods=['GET'])
 def home():
@@ -62,7 +42,6 @@ def api_facts():
         return 'Error: No Hostname provided'
 
     results = []
-    driver = napalm.get_network_driver('eos')
 
     results = connect(host = hostname, getFunc = 'facts')
 
