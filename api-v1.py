@@ -1,9 +1,7 @@
 import flask
 from flask import request, jsonify
 import os
-#import napalm
-# from cryptography.fernet import Fernet
-from passFunc import decryptPass
+#from passFunc import decryptPass
 from connect import connect
 
 app = flask.Flask(__name__)

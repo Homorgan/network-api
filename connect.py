@@ -1,7 +1,5 @@
 import napalm
 from passFunc import decryptPass
-#from flask import jsonify
-
 
 def connect(host, getFunc):
 
@@ -13,7 +11,11 @@ def connect(host, getFunc):
 
     device = driver(hostname=host, username='vagrant', password=decPass, optional_args={'port': 12443})
 
-    device.open()
+    try:
+        device.open()
+    except:
+        results = 'Host is down'
+        return results
 
     if getFunc == 'facts':
         results = device.get_facts()
