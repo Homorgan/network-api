@@ -1,5 +1,8 @@
 from cryptography.fernet import Fernet
-
+"""
+This is a function that will decrypt a stored password.
+This key file and passwword storage file are network API
+"""
 def decryptPass():
     file = open('store.txt', 'rb')
     enc = file.read()
