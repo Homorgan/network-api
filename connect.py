@@ -14,7 +14,7 @@ def connect(host, getFunc):
     try:
         device.open()
     except:
-        results = 'Host is down'
+        results = 'Host is down or is refusing the connection'
         return results
 
     if getFunc == 'facts':
